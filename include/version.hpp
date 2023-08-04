@@ -1,22 +1,5 @@
 ﻿#pragma once
 #include <string>
-/*
-* v1.2
-* V1.2
-* 1.2
-* 1.2.3
-* 1.2.3.4
-* 10.1.2
-* v0.2-alpha 内部测试版 -> Dev
-* v0.2-alpha.xx 内部测试版 -> Dev
-* v0.2-dev 内部测试版 -> Dev
-* v0.2.0-alpha.xx 内部测试版 -> Dev
-* v0.2.0-dev 内部测试版 -> Dev
-* v5.9-beta.3 测试版  -> Beta
-* 如果 - 后面不是 alpha 或 beta, 结束转化
-*/
-
-// 比较原理 都化为一个中间数 比如 1.2 化为 [1,2]
 
 class Version {
 public:
@@ -77,6 +60,12 @@ public:
         return b < *this;
     }
 public:
+    /**
+     * @brief 转为字符串形式方便阅读
+     * @param hasStatus 是否显示版本类型
+     * @param hasBetaVer 是否显示测试版本号
+     * @return 返回格式为 0.0.0 或 0.0.0 - Beta 或 0.0.0.0 - Beta
+    */
     std::string toString(bool hasStatus = false, bool hasBetaVer = false) {
         std::string ret = std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(revision);
         if (hasBetaVer) {

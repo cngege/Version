@@ -6,10 +6,11 @@
 
 int main()
 {
-    const char* v = "1.40.100-alpha.456";
+    const char* v = "1.40-alpha.456";
     Version ver(v);
 
-    std::cout << ver.toDetailedString() << std::endl;
+    std::cout << "toString: " << ver.toString(1,1) << std::endl;
+    std::cout << "toDetailedString: " << ver.toDetailedString() << std::endl;
     std::cout << "major: " << ver.major << std::endl;
     std::cout << "minor: " << ver.minor << std::endl;
     std::cout << "revision: " << ver.revision << std::endl;
@@ -26,7 +27,7 @@ int main()
 
     std::cout << "==========比较==========" << std::endl;
     // 比较
-    Version ver1("1.10.5");
+    Version ver1("1.10.6");
     Version ver2("1.10.6");
     if (ver1 < ver2) {
         std::cout << ver1.toString(1) << " < " << ver2.toString(1) << std::endl;
@@ -36,6 +37,10 @@ int main()
     }
     else {
         std::cout << ver1.toDetailedString() << " = " << ver2.toDetailedString() << std::endl;
+    }
+
+    if (ver1 != ver2) {
+        std::cout << ver1.toDetailedString() << " != " << ver2.toDetailedString() << std::endl;
     }
 }
 

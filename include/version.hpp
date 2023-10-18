@@ -4,9 +4,9 @@
 class Version {
 public:
     enum Status {
-        Dev,
-        Beta,
-        Release
+        Dev,            /*开发版*/
+        Beta,           /*测试版*/
+        Release         /*正式发布版*/
     };
     int major = 0;
     int minor = 0;
@@ -16,20 +16,23 @@ public:
 
 private:
     enum ParseCheckPosition {
-        enummajor,
-        enumminor,
-        enumrevision,
-        enumbetaversion,
+        enummajor,          /*反序列化标志位 主版本号*/
+        enumminor,          /*反序列化标志位 次版本号*/
+        enumrevision,       /*反序列化标志位 修订号*/
+        enumbetaversion,    /*反序列化标志位 测试版本号*/
     };
     ParseCheckPosition parseCheckPos = ParseCheckPosition::enummajor;
+    bool vaild = false;
 public:
 	Version(const char* v) {
-        Parse(v);
+        vaild = Parse(v);
 	}
 
     Version(int major, int minor, int revision, Status status = Status::Release, int betaversion = 0)
     : major(major), minor(minor), revision(revision), status(status), betaversion(betaversion)
-    {}
+    {
+        vaild = true;
+    }
 
 public:
     bool operator==(const Version& b) const {
@@ -59,6 +62,11 @@ public:
     bool operator>(const Version& b) const {
         return b < *this;
     }
+
+    operator bool() const {
+        return vaild;
+    }
+
 public:
     /**
      * @brief 转为字符串形式方便阅读
@@ -88,7 +96,7 @@ public:
         if (revision != 0) {
             ret += "." + std::to_string(revision);
         }
-        if (status == Status::Dev)  ret += "-alpha";
+        if (status == Status::Dev)  ret += "-dev";
         if (status == Status::Beta)  ret += "-beta";
         if (status != Status::Release) {
             ret += "." + std::to_string(betaversion);
@@ -151,8 +159,10 @@ private:
     /**
      * @brief 反序列化 将字符串反序列化为内部参数
      * @param v 
+     * @return 是否读出了版本号, 至少要读出两位版本号(1.2)
     */
-    void Parse(const char* v) {
+    bool Parse(const char* v) {
+        bool ret = false;
         for (;;) {
             if (*v == '\0') {
                 break;
@@ -173,8 +183,14 @@ private:
                     v++;
                     continue;
                 }
-                v++;
-                continue;
+                // 到这里不可能是. \\n 数字
+                // 所以只能是非法字符(为了兼容性,将空格放过)
+                if (*v == ' ') {
+                    v++;
+                    continue;
+                }
+                // 非法字符 反序列化失败
+                break;
             }
             // parseCheckPos == ParseCheckPosition::minor
             if (parseCheckPos == ParseCheckPosition::enumminor) {
@@ -186,6 +202,7 @@ private:
                 if (isdigit(*v) != 0) {
                     minor = minor * 10 + (*v - '0');
                     v++;
+                    ret = true;
                     continue;
                 }
                 if (*v == '-' || *v == '_') {
@@ -271,6 +288,7 @@ private:
                     break;
                 }
                 if (isdigit(*v) != 0) {
+                    if (status == Status::Release && ((*v - '0') != 0)) status = Status::Beta;
                     betaversion = betaversion * 10 + (*v - '0');
                     v++;
                     continue;
@@ -280,5 +298,6 @@ private:
                 continue;
             }
         }
+        return ret;
     }
 };

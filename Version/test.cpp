@@ -8,7 +8,7 @@ int main()
 {
     const char* v = "1.40-alpha.456";
     //v = "1.40.1.12";
-    Version ver(v);
+    std::Version ver(v);
 
     std::cout << "toString: " << ver.toString(1,1) << std::endl;
     std::cout << "toDetailedString: " << ver.toDetailedString() << std::endl;
@@ -28,8 +28,8 @@ int main()
 
     std::cout << "==========比较==========" << std::endl;
     // 比较
-    Version ver1("1.10.6");
-    Version ver2("1.10.6");
+    std::Version ver1("1.10.6");
+    std::Version ver2("1.10.6");
     if (ver1 < ver2) {
         std::cout << ver1.toString(1) << " < " << ver2.toString(1) << std::endl;
     }
@@ -44,7 +44,7 @@ int main()
         std::cout << ver1.toDetailedString() << " != " << ver2.toDetailedString() << std::endl;
     }
     std::cout << "==========测试空版本,以及反序列化失败的情况==========" << std::endl;
-    Version ver3("");
+    std::Version ver3("");
     std::cout << ver3.toString() << " ver3.toString()" << std::endl;
     std::cout << ver3.toString(1) << " ver3.toString(1)" << std::endl;
     std::cout << ver3.toString(1, 1) << " ver3.toString(1,1)" << std::endl;
@@ -52,7 +52,7 @@ int main()
     std::cout << (ver3 ? "ver3 有效" : "ver3 无效") << std::endl;
     
     std::cout << "==========测试意外情况==========" << std::endl;
-    Version ver4("v1.");
+    std::Version ver4("v1.");
     std::cout << (ver4 ? "ver4 有效" : "ver4 无效") << std::endl;
     std::cout << ver4.toDetailedString() << std::endl;
 }

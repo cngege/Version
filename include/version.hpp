@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <string>
 
+namespace std {
+
 class Version {
 public:
     enum Status {
@@ -307,3 +309,5 @@ private:
         return ret;
     }
 };
+
+}

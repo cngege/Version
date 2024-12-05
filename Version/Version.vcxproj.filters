@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\version.hpp">
+    <ClInclude Include="..\include\VersionParse\Version.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

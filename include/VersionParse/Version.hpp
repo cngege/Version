@@ -1,4 +1,8 @@
-﻿#pragma once
+﻿#ifndef VERSIONPARSE_VERSION_HPP
+#define VERSIONPARSE_VERSION_HPP
+
+
+#pragma once
 #include <string>
 
 namespace std {
@@ -311,3 +315,6 @@ private:
 };
 
 }
+
+
+#endif // !VERSIONPARSE_VERSION_HPP

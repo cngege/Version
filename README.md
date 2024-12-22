@@ -1,4 +1,4 @@
-﻿# Version - C++ 的版本反序列化器
+# Version - C++ 的版本反序列化器
 
 ## 🧆特点  
   **仅一个头文件 直接加入项目即可**
@@ -10,7 +10,7 @@
 ## 🚀如何使用  
   *非常简单,该文件仅一个类`Version` 直接引用文件，然后创建它就好*
 
-###   ➕创建类 1 
+###   ➕创建类 1
 ```cpp
 // 创建它
 Version(int,int,int,Status = Status::Release,int = 0)
@@ -27,7 +27,7 @@ Status::Beta
 Status::Dev
 ```
 
-###   ➕创建类 2 
+###   ➕创建类 2
 ```cpp
 // 创建它
 Version(const char* versionStr)
@@ -52,7 +52,7 @@ Version(const char* versionStr)
 */
 ```
 
-###   🔠直接比较版本大小 
+###   🔠直接比较版本大小
 ```cpp
 //支持比较符 > >= < <= ==
 
@@ -80,7 +80,7 @@ if(ver1)
 ```cpp
 version ver("1.40-alpha.456");
 
-//std::string toString(bool hasStatus = false, bool hasBetaVer = false) 
+//std::string toString(bool hasStatus = false, bool hasBetaVer = false)
 ver.toString();
 //ret: 1.40.0
 ver.toString(true);

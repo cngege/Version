@@ -28,8 +28,8 @@ int main()
 
     std::cout << "==========比较==========" << std::endl;
     // 比较
-    std::Version ver1("1.10.6");
-    std::Version ver2("1.10.6");
+    std::Version ver1("1.0.7");
+    std::Version ver2("1.1.0");
     if (ver1 < ver2) {
         std::cout << ver1.toString(1) << " < " << ver2.toString(1) << std::endl;
     }
@@ -55,6 +55,26 @@ int main()
     std::Version ver4("v1.");
     std::cout << (ver4 ? "ver4 有效" : "ver4 无效") << std::endl;
     std::cout << ver4.toDetailedString() << std::endl;
+
+    std::string read;
+    std::cout << "现在比较两个版本号,请输入第一个版本:";
+    std::cin >> read;
+    std::Version ver5(read.c_str());
+    std::cout << (ver5 ? "ver5 有效" : "ver5 无效") << std::endl;
+    std::cout << "现在比较两个版本号,请输入第二个版本:";
+    std::cin >> read;
+    std::Version ver6(read.c_str());
+    std::cout << (ver6 ? "ver6 有效" : "ver6 无效") << std::endl;
+
+    if(ver5 < ver6) {
+        std::cout << ver5.toString(1) << " < " << ver6.toString(1) << std::endl;
+    }
+    else if(ver5 > ver6) {
+        std::cout << ver5.toDetailedString() << " > " << ver6.toDetailedString() << std::endl;
+    }
+    else {
+        std::cout << ver5.toDetailedString() << " = " << ver6.toDetailedString() << std::endl;
+    }
 }
 
 
